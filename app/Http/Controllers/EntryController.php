@@ -4,27 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Entry;
 use Illuminate\Http\Request;
+use App\Http\Traits\SortByTrait;
+use Illuminate\Support\Facades\Auth;
 
 class EntryController extends Controller
 {
 
-    public function index(Request $request)
+    use SortByTrait;
+
+    private $request;
+
+    function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function index()
     {
         return view('entries', [
-                'entries' => Entry::getEntries(),
+                'entries' => Entry::getEntries($this->request),
+                'url' => $this->getSortByUrl('index'),
+                'iconDirection' => $this->getIconDirection($this->request),
         ]);
     }
 
-    public function entriesByUser(Request $request,$id)
+    public function entriesByUser($id)
     {
         return view('entries', [
-                'entries' => Entry::getEntries($id,$this->getSort($request)),
+                'entries' => Entry::getEntries($this->request,$id),
+                'url' => $this->getSortByUrl('userEntries',$id),
+                'iconDirection' => $this->getIconDirection($this->request),
         ]);
     }
 
-    private function getSort(Request $request){
-        $sort = $request->session()->get('sort', true) ? false : true;
-        $request->session()->put('sort', $sort);
-        return $sort;
+    public function userEntries(){
+        return view('entries', [
+                'entries' => Entry::getEntries($this->request, Auth::user()->id),
+                'url' => $this->getSortByUrl('myEntries'),
+                'iconDirection' => $this->getIconDirection($this->request),
+        ]); 
     }
+    
+    
 }

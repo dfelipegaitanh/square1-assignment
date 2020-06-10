@@ -36,7 +36,7 @@
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Create') }}
                             </button>
-                            <a class="btn btn-primary"  href="{{ route('home') }}">
+                            <a class="btn btn-primary"  href="{{ route('myEntries') }}">
                                 {{ __('View My Entries') }}
                             </a>
                         </div>

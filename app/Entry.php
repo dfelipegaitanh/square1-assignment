@@ -2,22 +2,25 @@
 
 namespace App;
 
+use App\Http\Traits\SortByTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Entry extends Model
 {
 
+    use SortByTrait;
+
     protected $fillable = ['title', 'description'];
     private $request;
 
-    public static function getEntries( $id = null, $sort = null)
+    public static function getEntries( Request $request, $id = null)
     {
-        $order = $sort ? 'asc' : 'desc';
-        echo $order;
+        $order = SortByTrait::getSort($request) ? 'asc' : 'desc';
         $entries = is_null($id) ? Entry::orderBy('created_at', $order)
                 : Entry::where("user_id", $id)->orderBy('created_at', $order);
-        return $entries->get(); // ->paginate(config('square1.pagination'));
+        return $entries->get();
     }
 
     public function user()

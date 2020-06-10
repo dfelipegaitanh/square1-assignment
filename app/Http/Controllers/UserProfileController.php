@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entry;
+use App\Http\Traits\SortByTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -11,16 +12,22 @@ use Illuminate\Validation\Rule;
 class UserProfileController extends Controller
 {
 
-    public function __construct()
+    use SortByTrait;
+
+    private $request;
+
+    function __construct(Request $request)
     {
+        $this->request = $request;
         $this->middleware('auth');
     }
 
     public function index()
     {
         return view('entries', [
-                'entries' => Entry::getEntries(Auth::user()->id),
-        ]);
+                'entries' => Entry::getEntries($this->request, Auth::user()->id),
+                'url' => $this->getSortByUrl('myEntries'),
+        ]); 
     }
 
     public function profile()

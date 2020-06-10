@@ -53,7 +53,8 @@ php artisan db:seed
 ------------
 Once you enter the application and go to the path */login* you can use this credentials
 ```html 
-email: "user@example.com"
+username: "admin"
+email: "admin@admin.com"
 password: "password"
 ```
 

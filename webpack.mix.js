@@ -18,5 +18,4 @@ mix.js('resources/js/all.js', 'public/js/all.js');
 
 mix.styles([
     'resources/css/entry.css',
-    'resources/css/sidebar.css',
 ], 'public/css/all.css');

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ]
         )->save();
         for ($i = 0, $iMax = 2; $i < $iMax; $i++) {
+            sleep(1);
             $user->entries()->save(factory(Entry::class)->make());
         }
 

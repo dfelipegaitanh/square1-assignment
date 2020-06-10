@@ -36,13 +36,11 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" >
 
-            @include("sidebar")
-
             <div class="container">
                 <button type="button" id="sidebarCollapse" class="btn">
                     <i class="fas fa-align-left"></i>
                 </button>
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('index') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
 
@@ -72,7 +70,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                    <a class="dropdown-item" href="{{ route('myEntries') }}">
                                         {{ __('My Entries') }}
                                     </a>
 

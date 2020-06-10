@@ -15,10 +15,10 @@
 Auth::routes();
 
 
-Route::get('/', 'EntryController@index')->name('index');
+Route::get('/home/{sort?}', 'EntryController@index')->name('index');
 Route::get('entries/{id}/{sort?}', 'EntryController@entriesByUser')->name('userEntries');
 
-Route::get('/my_entries', 'UserProfileController@index')->name('home');
+Route::get('myEntries', 'EntryController@userEntries')->name('myEntries');
 Route::get('profile', 'UserProfileController@profile')->name('profile');
 Route::post('profile', 'UserProfileController@updateProfile')->name('update_profile');
 

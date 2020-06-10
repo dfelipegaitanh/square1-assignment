@@ -15,9 +15,9 @@
                     </div>
                 @endforeach
 
+                @include('sort_by')
+
             </div>
         </div>
     </div>
 @endsection
-
-@include('sidebar')
