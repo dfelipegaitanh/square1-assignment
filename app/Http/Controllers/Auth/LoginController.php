@@ -21,13 +21,45 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * Login username to be used by the controller.
+     *
+     * @var string
+     */
+    protected $username;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
+        $this->username = $this->findUsername();
         $this->redirectTo = route('index');
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout'); 
     }
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function findUsername()
+    {
+        $login = request()->input('login');
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        request()->merge([$fieldType => $login]);
+        return $fieldType;
+    }
+ 
+    /**
+     * Get username property.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return $this->username;
+    }
+
 }
