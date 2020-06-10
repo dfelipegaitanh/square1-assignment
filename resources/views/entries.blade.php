@@ -5,6 +5,15 @@
         <div class="row justify-content-center">
             <div class="col-md-9 col-sm-3 blog-main">
 
+                @guest
+                @else
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif 
+                @endguest
+
                 @include('sort_by')
 
                 @foreach ($entries as $entry)

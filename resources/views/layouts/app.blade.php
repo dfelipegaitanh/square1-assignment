@@ -78,6 +78,10 @@
                                         {{ __('Create Entriy') }}
                                     </a>
 
+                                    <a class="dropdown-item" href="{{ route('retrieveApiPosts') }}">
+                                        {{ __('Retrieve API Posts') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('profile') }}">
                                         {{ __('Profile') }}
                                     </a>

@@ -1,4 +1,4 @@
-# Diego Gaitán Challenge
+# Felipe Gaitán Challenge
 
 ------------
 

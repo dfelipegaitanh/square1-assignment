@@ -3,9 +3,14 @@
 use App\Entry;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
+
+use function GuzzleHttp\json_decode;
 
 class DatabaseSeeder extends Seeder
 {
+
+    
     /**
      * Seed the application's database.
      *
@@ -13,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
+        
         $user = new App\User;
         $user->fill(
             [
@@ -25,9 +30,17 @@ class DatabaseSeeder extends Seeder
                 'remember_token'    => Str::random(10),
             ]
         )->save();
-        for ($i = 0, $iMax = 2; $i < $iMax; $i++) {
-            sleep(1);
-            $user->entries()->save(factory(Entry::class)->make());
+
+        $client = new Client([ 'base_uri' => 'https://sq1-api-test.herokuapp.com/' ]);
+        $response = $client->request('GET', 'posts');
+        $entries = json_decode($response->getBody()->getContents(), true);
+        
+        foreach( $entries['data'] as $entry ) {
+            $user->entries()->create([
+                'title' => $entry['title'],
+                'description' => $entry['description'],
+                'created_at' => $entry['publication_date'],
+                ]);
         }
 
         factory(App\User::class, 15)->create()->each(function ($user) {
