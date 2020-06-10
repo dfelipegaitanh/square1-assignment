@@ -1,0 +1,7 @@
+<VirtualHost *:80>
+    ServerName square1assignment.com
+    ServerAlias  diego_gaitan.square1assignment.com
+    DocumentRoot /var/www/square1assignment/diego_gaitan/public
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

@@ -1,0 +1,1 @@
+{!! \App\Entry::printAction($entry) !!}
